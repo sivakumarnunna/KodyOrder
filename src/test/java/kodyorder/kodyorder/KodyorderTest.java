@@ -87,7 +87,7 @@ public class KodyorderTest extends WebDriverUtils{
 		
 	  String successmessage =  driver.findElement(By.xpath("//kody-order-confirmed-page/ion-content/kody-order-confirmed-details/section/p[1]")).getText();
      org.testng.Assert.assertEquals(successmessage, "Nice one, your order has been paid for and sent to SIVA HOTEL.");
-
+      driver.close();
   }
   
 //  @Test
