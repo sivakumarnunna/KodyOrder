@@ -1,5 +1,7 @@
 package kodyorder.kodyorder;
 
+import java.time.Duration;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -43,20 +45,21 @@ public class WebDriverUtils {
 		}
 		
 		logger.info("Browser is :: "+ApplicationConstants.BROWSER_TYPE);
-		
-		
+		driver.manage().window().maximize();
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		
 	}
 	
 
 	public boolean EnterText( By by,String text) {
 		try {
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
 			driver.findElement(by).clear(); 
 			driver.findElement(by).sendKeys(text); 
 			return true;
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

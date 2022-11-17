@@ -4,10 +4,9 @@ import java.awt.AWTException;
 
 import org.openqa.selenium.By;
 
-
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
+import org.testng.Assert;
 public class KodyorderTest extends WebDriverUtils{
 	
 	
@@ -59,12 +58,25 @@ public class KodyorderTest extends WebDriverUtils{
   }
 
   @When("Click on checkout")
-  public void click_on_checkout() {
+  public void click_on_checkout() throws InterruptedException {
 
 	    click(By.xpath("//kody-menu-checkout-button/ion-fab-button/img"));
+	    
+	    
+	    
+	    click(By.xpath("//kody-payment-discount/ion-item/kodypay-payment-list-button/ion-button"));
+	    Thread.sleep(5000);
+	    EnterText(By.xpath("//kody-shared-ui-modal/div/div/form/ion-input/input"),"12345");  
+	    click(By.xpath("//kody-shared-ui-modal/ion-footer/div/ion-button"));
+	    ////kody-shared-ui-modal/ion-footer/div/ion-button
+	    
+	   // Thread.sleep(10000);
+	 //   new WebDriverWait(driver,Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(By.xpath("//kody-discount-modal/kody-shared-ui-modal/div/div/form/ion-input"))).sendKeys("12345");
+
 
 	    click(By.xpath("//kodypay-payment-page-footer/ion-footer/ion-toolbar/p/a"));
-	    
+	    Thread.sleep(5000);
+
 	    EnterText(By.xpath("//kody-card-details-form/form/div[1]/ion-input/input"), "siva.nunna@kodypay.com");  }
 
   @When("pay the Amount By using card")
@@ -82,11 +94,10 @@ public class KodyorderTest extends WebDriverUtils{
 	    click(By.xpath("//kody-pay-by-card-btn/ion-button"));
 	  
 	   
-	    Thread.sleep(5000);
-	    
-		
-	  String successmessage =  driver.findElement(By.xpath("//kody-order-confirmed-page/ion-content/kody-order-confirmed-details/section/p[1]")).getText();
-     org.testng.Assert.assertEquals(successmessage, "Nice one, your order has been paid for and sent to SIVA HOTEL.");
+	    Thread.sleep(10000);
+	    System.out.println("Current URL is "+driver.getCurrentUrl());
+     Assert.assertEquals(driver.getCurrentUrl().contains("order-confirmed"),true);
+
       driver.close();
   }
   
