@@ -16,6 +16,8 @@ public class KodyorderTest extends WebDriverUtils{
     driver.get(ApplicationConstants.BASE_URL);
     
     
+    System.out.println("new change for vinod");
+    
     click(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]"));
     driver.findElement(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]")).click();
 
