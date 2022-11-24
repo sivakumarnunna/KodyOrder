@@ -1,4 +1,4 @@
-package kodyorder.kodyorder;
+package kodyorder.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,17 +28,17 @@ public class ApplicationConstants {
 	public static String PUBLIC_KEY;
 	public static String PRIVATE_KEY;
 	public static String BROWSER_TYPE;
-
-
+	public static String DRIVER_PATH;
 
 	static {
 		try {
-			properties.load(new FileInputStream("src\\test\\resources\\properties\\applicationundertest.properties"));
-			BASE_URL = properties.getProperty("baseUri");
+			properties.load(new FileInputStream("/Users/nunnasivakumar/git/KodyOrder/src/test/resources/properties/applicationundertest.properties"));
+		   BASE_URL = properties.getProperty("baseUri");
 			SOT_PATH = properties.getProperty("sotpath");
 			PUBLIC_KEY = properties.getProperty("publickey");
 			PRIVATE_KEY = properties.getProperty("privatekey");
 			BROWSER_TYPE= properties.getProperty("browsertype");
+			DRIVER_PATH=properties.getProperty("driverpath");
 			logger.info("Base URL :::" + BASE_URL);
 			logger.info("SOT files path :::" + SOT_PATH);
 		} catch (IOException e) {
