@@ -3,6 +3,7 @@ package kodyorder.kodyorder;
 import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -11,60 +12,18 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import kodyorder.pages.MenuPage;
+import kodyorder.utils.KodypayUtils;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 public class KodyorderTest extends KodypayUtils{
 	
-	
- 
-  public void kodyorder() throws InterruptedException, AWTException {
-
-    driver.get(ApplicationConstants.BASE_URL);
-    
-    
-    System.out.println("new change for vinod");
-    
-    click(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]"));
-    driver.findElement(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]")).click();
-
-    click(By.xpath("//kody-menu-item[1]//ion-item//ion-label"));
-
-    click(By.xpath("//kody-menu-item[2]/ion-item/ion-label"));
-
-    click(By.xpath("//kody-menu-checkout-button/ion-fab-button/img"));
-
-    click(By.xpath("//kodypay-payment-page-footer/ion-footer/ion-toolbar/p/a"));
-    
-    EnterText(By.xpath("//kody-card-details-form/form/div[1]/ion-input/input"), "siva.nunna@kodypay.com");
-    
-    driver.switchTo().frame("checkout-frames-form");
-    
-    EnterText(By.name("cardnumber"), "4485040371536584");
-    EnterText(By.name("exp-date"), "01/99");
-    EnterTextWithOutClear(By.id("checkout-frames-cvv"), "100");
-   
-    driver.switchTo().defaultContent();
-    click(By.xpath("//kody-pay-by-card-btn/ion-button"));
-    driver.close();
-    
-  }
-  
-  
-  @When("I selected the food")
-  public void i_selected_the_food() {
-	    
-	    
-	    click(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]"));
-	    click(By.xpath("//kody-consumer-menu-page/ion-content/kody-menu-categories/ion-badge[1]"));
-
-	    click(By.xpath("//kody-menu-item[1]//ion-item//ion-label"));
-
-	    click(By.xpath("//kody-menu-item[2]/ion-item/ion-label"));
-
-  }
   
   @When("I selected the menu item {string}")
   public void i_selected_the_menu_item(String menuitem) {
@@ -95,8 +54,9 @@ public class KodyorderTest extends KodypayUtils{
   public void validate_storename(String storename) {
 	  
 	  
-	  Assert.assertEquals(isElementExists(By.xpath("//*[@id='menu-header']/ion-toolbar/div")),true);	  
-	  Assert.assertEquals(getElementDisplayName(By.xpath("//*[@id='menu-header']/ion-toolbar/div")), "SIVA HOTEL");
+	  Assert.assertEquals(isElementExists(By.xpath(MenuPage.storename)),true);	  
+	  Assert.assertEquals(getElementDisplayName(By.xpath(MenuPage.storename)), storename);
+	  
 
   }
   
@@ -161,10 +121,13 @@ public class KodyorderTest extends KodypayUtils{
   public void order_should_be_placed_successfully() throws InterruptedException {
 	  driver.switchTo().defaultContent();
 	    click(By.xpath("//kody-pay-by-card-btn/ion-button"));
-	  
-	   
-	    Thread.sleep(10000);
-	    System.out.println("Current URL is "+driver.getCurrentUrl());
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	    wait.until(ExpectedConditions.urlContains("order-confirmed"));
+	    
+	    
+	   // Thread.sleep(10000);
+	   // logger.info("Current URL is "+driver.getCurrentUrl("order-confirmed"));
      Assert.assertEquals(driver.getCurrentUrl().contains("order-confirmed"),true);
 
       driver.close();
@@ -173,17 +136,18 @@ public class KodyorderTest extends KodypayUtils{
 	  @Test 
 	  public void test123() throws InterruptedException, IOException {
 	  driver.get("https://pay-staging.kodypay.com/store/945e1c8c-0258-42d6-a850-2026c9507945/table?table=1"); 
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	    wait.until(ExpectedConditions.urlContains("store"));
+
 	  TakesScreenshot scrShot =((TakesScreenshot)driver); 
 	  File SrcFile=scrShot.getScreenshotAs(OutputType.FILE); File DestFile=new
-	  File("src\\test\\resources\\properties\\kodyorderscreen1.png");
+	  File("/Users/nunnasivakumar/git/KodyOrder/src/test/resources/screenshots/kodyorderscreen1.jpg");
 	  
 	  //Copy file at destination
 	  
 	  FileUtils.copyFile(SrcFile, DestFile);
 	  compareImage("src\\test\\resources\\properties\\kodyorderscreen.png","src\\test\\resources\\properties\\kodyorderscreen1.png");
-	  
-	  
-	  
+	  	  
 	  }
 	 
   

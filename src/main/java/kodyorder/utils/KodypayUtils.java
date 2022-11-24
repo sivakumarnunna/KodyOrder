@@ -1,4 +1,4 @@
-package kodyorder.kodyorder;
+package kodyorder.utils;
 
 import java.util.List;
 
@@ -42,10 +42,6 @@ public class KodypayUtils  extends WebDriverUtils{
 	
 public void selectMenuItem(String menuitem) {
 		
-    click(By.xpath("//h2[normalize-space()='"+menuitem+"']"));
-
-		
+    click(By.xpath("//h2[normalize-space()='"+menuitem+"']"));	
 	}
-
-
 }

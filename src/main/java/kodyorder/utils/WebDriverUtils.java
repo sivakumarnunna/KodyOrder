@@ -1,4 +1,4 @@
-package kodyorder.kodyorder;
+package kodyorder.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,7 +30,7 @@ public class WebDriverUtils {
 
 		switch (ApplicationConstants.BROWSER_TYPE) {
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver", "Driver/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",ApplicationConstants.DRIVER_PATH);
 			driver = new ChromeDriver();
 			break;
 		case "firefox":
@@ -131,6 +131,10 @@ public class WebDriverUtils {
 		ImageDiffer imd = new ImageDiffer();
 		
 		ImageDiff diff = imd.makeDiff(act_image, exp_image);
+		diff.getMarkedImage();
+	    BufferedImage diffImage = diff.getDiffImage();
+	    ImageIO.write(diffImage, "PNG", new File(System.getProperty("src\\test\\resources\\properties\\diffImage.png")));
+
 		Assert.assertFalse(diff.hasDiff(), "Images are same");
 
 		return false;
