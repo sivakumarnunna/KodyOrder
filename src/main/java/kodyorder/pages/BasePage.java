@@ -16,7 +16,7 @@ public class BasePage {
 
 	static {
 	try {
-		LOCATORS.load(new FileInputStream("/Users/nunnasivakumar/git/KodyOrder/src/test/resources/properties/elementlocators.properties"));
+		LOCATORS.load(new FileInputStream("src/test/resources/properties/elementlocators.properties"));
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();
 	} catch (IOException e) {

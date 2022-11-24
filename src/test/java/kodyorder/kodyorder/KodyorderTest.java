@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import kodyorder.pages.MenuPage;
+import kodyorder.utils.ApplicationConstants;
 import kodyorder.utils.KodypayUtils;
 
 import org.testng.Assert;
@@ -51,12 +52,13 @@ public class KodyorderTest extends KodypayUtils{
 
   }
   @Then("validate store name {string}")
-  public void validate_storename(String storename) {
+  public void validate_storename(String storename) throws IOException {
 	  
 	  
 	  Assert.assertEquals(isElementExists(By.xpath(MenuPage.storename)),true);	  
 	  Assert.assertEquals(getElementDisplayName(By.xpath(MenuPage.storename)), storename);
-	  
+	  takeScreenShot(ApplicationConstants.ACTUAL_SCREENSHOTS_PATH,"menu screen.png");
+	  compareImage(ApplicationConstants.ACTUAL_SCREENSHOTS_PATH+"/"+"menu screen.png",ApplicationConstants.SOT_SCREENSHOTS_PATH+"/"+"menu screen.png");
 
   }
   
