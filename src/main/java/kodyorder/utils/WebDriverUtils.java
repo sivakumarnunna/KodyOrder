@@ -7,9 +7,12 @@ import java.time.Duration;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -133,12 +136,23 @@ public class WebDriverUtils {
 		ImageDiff diff = imd.makeDiff(act_image, exp_image);
 		diff.getMarkedImage();
 	    BufferedImage diffImage = diff.getDiffImage();
-	    ImageIO.write(diffImage, "PNG", new File(System.getProperty("src\\test\\resources\\properties\\diffImage.png")));
+	    ImageIO.write(diffImage, "PNG", new File("src\\test\\resources\\properties\\diffImage.png"));
 
 		Assert.assertFalse(diff.hasDiff(), "Images are same");
 
 		return false;
 		
 	}
+	public void takeScreenShot(String filepath,String filename) throws IOException {
+		  TakesScreenshot scrShot =((TakesScreenshot)driver); 
+		  File SrcFile=scrShot.getScreenshotAs(OutputType.FILE); 
+		  File DestFile=new File(filepath+"/"+filename);
+		  FileUtils.copyFile(SrcFile, DestFile);
 
+	}
+	
+	public void validateScreenShots(String sotfileimage,String actualimage) {
+		
+	}
+	
 }
