@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -66,28 +67,16 @@ public class WebDriverUtils {
 		
 	}
 
-	public boolean EnterTextWithOutClear(By by, String text) {
-		try {
+	public void EnterTextWithOutClear(By by, String text) throws InterruptedException {
+		
 			Thread.sleep(1000);
 			driver.findElement(by).sendKeys(text);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		
 	}
 
-	public boolean click(By by) {
-		try {
+	public void click(By by) throws InterruptedException {
 			Thread.sleep(1000);
 			driver.findElement(by).click();
-
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-		return false;
 	}
 
 	public boolean isElementExists(By by) {
@@ -97,7 +86,6 @@ public class WebDriverUtils {
 				
 			Thread.sleep(1000);
 			if (driver.findElements(by).size() > 0) {
-				logger.info(by + " web element present");
 				return true;
 			}
 		} 
@@ -127,18 +115,12 @@ public class WebDriverUtils {
 		
 		BufferedImage act_image = ImageIO.read(new File(ApplicationConstants.ACTUAL_SCREENSHOTS_PATH+"/"+image));
 		BufferedImage exp_image = ImageIO.read(new File(ApplicationConstants.SOT_SCREENSHOTS_PATH+"/"+image));
-		
 		ImageDiffer imd = new ImageDiffer();
-		
 		ImageDiff diff = imd.makeDiff(act_image, exp_image);
 	    BufferedImage diffImage = diff.getDiffImage();
-	    System.out.println(diff.getDiffSize());
-	    diff.getMarkedImage();
-	    diff.getTransparentMarkedImage();
-	    ImageIO.write(diff.getMarkedImage(), "PNG", new File("src\\test\\resources\\properties\\getMarkedImage.png"));
-	    ImageIO.write(diff.getTransparentMarkedImage(), "PNG", new File("src\\test\\resources\\properties\\getTransparentMarkedImage.png"));
-
-	    ImageIO.write(diffImage, "PNG", new File("src\\test\\resources\\properties\\diffImage.png"));
+	    if(diff.getDiffSize() > 0) {
+	    ImageIO.write(diffImage, "PNG", new File(ApplicationConstants.ERROR_SCREENSHOTS_PATH+"/"+image));
+	    }
 		Assert.assertFalse(diff.hasDiff(), "Images are same");
 
 		return false;
@@ -154,6 +136,12 @@ public class WebDriverUtils {
 	
 	public void validateScreenShots(String sotfileimage,String actualimage) {
 		
+	}
+	
+	public void scrollToDisplayElement(By element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();", driver.findElement(element));
+
 	}
 	
 }
