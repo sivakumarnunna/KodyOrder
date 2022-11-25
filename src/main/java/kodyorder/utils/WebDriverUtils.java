@@ -72,6 +72,7 @@ public class WebDriverUtils {
 			driver.findElement(by).sendKeys(text);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -92,7 +93,7 @@ public class WebDriverUtils {
 	public boolean isElementExists(By by) {
 
 		try {
-			for(int i=0;i<10;i++) {
+			for(int i=0;i<30;i++) {
 				
 			Thread.sleep(1000);
 			if (driver.findElements(by).size() > 0) {
@@ -122,31 +123,31 @@ public class WebDriverUtils {
 	}
 	
 	
-	public boolean compareImage(String actualimage,String expectedimage) throws IOException {
+	public boolean compareImage(String image) throws IOException {
 		
-		File actual_image_file  = new File(actualimage);
-		File exp_image_file  = new File(expectedimage);
-
-		
-		BufferedImage act_image = ImageIO.read(actual_image_file);
-		BufferedImage exp_image = ImageIO.read(exp_image_file);
+		BufferedImage act_image = ImageIO.read(new File(ApplicationConstants.ACTUAL_SCREENSHOTS_PATH+"/"+image));
+		BufferedImage exp_image = ImageIO.read(new File(ApplicationConstants.SOT_SCREENSHOTS_PATH+"/"+image));
 		
 		ImageDiffer imd = new ImageDiffer();
 		
 		ImageDiff diff = imd.makeDiff(act_image, exp_image);
-		diff.getMarkedImage();
 	    BufferedImage diffImage = diff.getDiffImage();
-	    ImageIO.write(diffImage, "PNG", new File("src\\test\\resources\\properties\\diffImage.png"));
+	    System.out.println(diff.getDiffSize());
+	    diff.getMarkedImage();
+	    diff.getTransparentMarkedImage();
+	    ImageIO.write(diff.getMarkedImage(), "PNG", new File("src\\test\\resources\\properties\\getMarkedImage.png"));
+	    ImageIO.write(diff.getTransparentMarkedImage(), "PNG", new File("src\\test\\resources\\properties\\getTransparentMarkedImage.png"));
 
+	    ImageIO.write(diffImage, "PNG", new File("src\\test\\resources\\properties\\diffImage.png"));
 		Assert.assertFalse(diff.hasDiff(), "Images are same");
 
 		return false;
 		
 	}
-	public void takeScreenShot(String filepath,String filename) throws IOException {
+	public void takeScreenShot(String filename) throws IOException {
 		  TakesScreenshot scrShot =((TakesScreenshot)driver); 
 		  File SrcFile=scrShot.getScreenshotAs(OutputType.FILE); 
-		  File DestFile=new File(filepath+"/"+filename);
+		  File DestFile=new File(ApplicationConstants.ACTUAL_SCREENSHOTS_PATH+"/"+filename);
 		  FileUtils.copyFile(SrcFile, DestFile);
 
 	}
