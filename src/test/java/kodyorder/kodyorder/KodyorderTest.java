@@ -73,6 +73,17 @@ public class KodyorderTest extends KodypayUtils {
 		isElementExists(menupage.ION_CHIP_IMAGE);
 		logger.info("*********Selected the menu item :  "+menuitem +"**********");
 	}
+	
+	@When("I selected the addon {string}")
+	public void i_selected_the_addon(String addon) throws InterruptedException {
+		menupage.selectAddon(addon);
+		logger.info("*********Selected the addon :  "+addon +"**********");
+	}
+	
+	
+	
+	//I selected the addon
+	
 
 	@When("Click on checkout")
 	public void click_on_checkout() throws InterruptedException {

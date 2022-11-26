@@ -13,7 +13,6 @@ public class CheckOutPage extends BasePage {
 	public By CHECKOUT_PAGE_TITLE = By.xpath(LOCATORS.getProperty("checkout_page_title"));
 	public By KODYPAY_DISCOUNT_BUTTON = By.xpath(LOCATORS.getProperty("kodypay_discount_button"));
 	public By KODYPAY_DISCOUNT_TEXTFIELD = By.xpath(LOCATORS.getProperty("kodypay_discount_textfield"));
-	public By KODYPAY_APPLY_DISCOUNT_BUTTON = By.xpath(LOCATORS.getProperty("kodypay_apply_discount_button"));
 	public By PAY_BY_CARD_LINK = By.xpath(LOCATORS.getProperty("pay_by_card_link"));
 
 
@@ -29,7 +28,7 @@ public class CheckOutPage extends BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.presenceOfElementLocated(KODYPAY_DISCOUNT_TEXTFIELD));
 		EnterTextWithOutClear(KODYPAY_DISCOUNT_TEXTFIELD,code);
-		click(KODYPAY_APPLY_DISCOUNT_BUTTON);
+		click(KODYPAY_APPLY_BUTTON);
 		scrollToDisplayElement(CHECKOUT_PAGE_TITLE);
 		Thread.sleep(3000);
 	}
