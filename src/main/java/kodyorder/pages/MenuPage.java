@@ -24,4 +24,23 @@ public class MenuPage extends BasePage {
 
 		click(By.xpath("//h2[normalize-space()='" + menuitem + "']"));
 	}
+	
+	public void selectAddon(String addon) throws InterruptedException {
+		
+		for (int i = 1; i < 10; i++) {
+			
+			System.out.println("Addon is......."+driver.findElement(By.xpath(
+					"//kody-consumer-addon-modal/kody-shared-ui-modal/div/div/kody-list-item-action["+i+"]/ion-item/kody-toggle-button")).getAttribute("kp-object"));
+			if (driver.findElement(By.xpath(
+					"//kody-consumer-addon-modal/kody-shared-ui-modal/div/div/kody-list-item-action["+i+"]/ion-item/kody-toggle-button")).getAttribute("kp-object").equalsIgnoreCase(addon)){
+				click(By.xpath(
+					"//kody-consumer-addon-modal/kody-shared-ui-modal/div/div/kody-list-item-action["+i+"]/ion-item/kody-toggle-button"));
+				break;
+			}
+		}
+		System.out.println("successfully selected");
+
+		Thread.sleep(5000);
+		click(KODYPAY_APPLY_BUTTON);
+	}
 }

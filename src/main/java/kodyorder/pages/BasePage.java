@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 
 import kodyorder.utils.WebDriverUtils;
 
@@ -15,6 +16,9 @@ public class BasePage extends WebDriverUtils{
 	
 	static Properties LOCATORS = new Properties();
 	static Logger logger = LogManager.getLogger(BasePage.class);
+	
+	public By KODYPAY_APPLY_BUTTON = By.xpath(LOCATORS.getProperty("kodypay_apply_discount_button"));
+
 
 	static {
 	try {
