@@ -8,9 +8,9 @@ Feature: marvel characters rest api testing
     Then validate category names "Burgers,pizzas,Desserts,Milk shakes & cool drinks"
     When I selected the category "Burgers"
     And I selected the menu item "Cheeseburger"
-    And I selected the addon "ketchup"
+    And I have not selected the addon
     And I selected the menu item "Chickenburger"
-    And I selected the addon "ketchup"
+    And I have not selected the addon
     Then validate the screen "menu_burgers_selected.png"
     When I selected the category "pizzas"
     And I selected the menu item "Veggie Pizza"
@@ -36,6 +36,7 @@ Feature: marvel characters rest api testing
     When I enter email "siva.nunna@kodypay.com"
     And pay the Amount By using card "4485040371536584"
     Then order should be placed successfully
+    Then close the kodyorder web page
     
     Scenario: Customer ordering from kodyorder with addons
     When I open the kodyorder URL "https://pay-staging.kodypay.com/store/945e1c8c-0258-42d6-a850-2026c9507945/table?table=1"
@@ -62,14 +63,15 @@ Feature: marvel characters rest api testing
     And Click on checkout
     Then validate the screen "Test Foods_addons_checkout.png"
     When I click discount button
-    Then validate the screen "apply_discount_code_12345.png"
+    Then validate the screen "apply_discount_code_addons_12345.png"
     When applied the discount code "12345"
-    Then validate the screen "checkout_discount_12345.png"
+    Then validate the screen "checkout_discount_addons_12345.png"
     When click on paybycard
-    Then validate the screen "card_input_page.png"
+    Then validate the screen "card_input_addons_page.png"
     When I enter email "siva.nunna@kodypay.com"
     And pay the Amount By using card "4485040371536584"
     Then order should be placed successfully
+    Then close the kodyorder web page
     
 
  

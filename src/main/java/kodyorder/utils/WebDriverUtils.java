@@ -31,7 +31,7 @@ public class WebDriverUtils {
 	// public static String BASE_URL;
 
 	static {
-
+	
 		switch (ApplicationConstants.BROWSER_TYPE) {
 		case "chrome":
 			System.setProperty("webdriver.chrome.driver",ApplicationConstants.DRIVER_PATH);
@@ -144,4 +144,38 @@ public class WebDriverUtils {
 
 	}
 	
-}
+	public void sendEmail(String email) {
+		
+		
+		
+	}
+	public void intializeBrowser() {
+		
+
+		switch (ApplicationConstants.BROWSER_TYPE) {
+		case "chrome":
+			System.setProperty("webdriver.chrome.driver",ApplicationConstants.DRIVER_PATH);
+			driver = new ChromeDriver();
+			break;
+		case "firefox":
+			System.setProperty("webdriver.gecko.driver", "Driver/geckodriver.exe");
+			driver = new FirefoxDriver();
+			break;
+		case "msedge":
+			System.setProperty("webdriver.edge.driver", "Driver/msedgedriver.exe");
+			driver = new EdgeDriver();
+			break;
+
+		default:
+			System.out.println("No driver found");
+
+			break;
+		}
+
+		logger.info("Browser is :: " + ApplicationConstants.BROWSER_TYPE);
+		driver.manage().window().maximize();
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+	}
+	}
+

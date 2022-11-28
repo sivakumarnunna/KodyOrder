@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,7 @@ import kodyorder.pages.KodyCardDetailsPage;
 import kodyorder.pages.MenuPage;
 import kodyorder.utils.ApplicationConstants;
 import kodyorder.utils.KodypayUtils;
+import kodyorder.utils.WebDriverUtils;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -36,8 +38,15 @@ public class KodyorderTest extends KodypayUtils {
 
 	@When("I open the kodyorder URL {string}")
 	public void i_opne_kodyorder_url(String url) {
-		driver.get(url);
+		try {
+			driver.get(url);
+		} catch (NoSuchSessionException e) {
+			intializeBrowser();
+			//e.printStackTrace();
+		}
 		logger.info("*********opened the kody order page "+url +"**********");
+		driver.get(url);
+
 	}
 
 	@Then("validate store name {string}")
@@ -89,11 +98,13 @@ public class KodyorderTest extends KodypayUtils {
 		logger.info("*********Selected the addon :  "+addon +"**********");
 	}
 	
-	
+	@When("I have not selected the addon")
+	public void i_have_not_selected_the_addon() throws InterruptedException {
+		click(menupage.KODYPAY_APPLY_BUTTON);
+
+	}
 	
 	//I selected the addon
-	
-
 	@When("Click on checkout")
 	public void click_on_checkout() throws InterruptedException {
 		click(menupage.CHECKOUT_BUTTON);
@@ -133,6 +144,11 @@ public class KodyorderTest extends KodypayUtils {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.urlContains("order-confirmed"));
 		Assert.assertEquals(driver.getCurrentUrl().contains("order-confirmed"), true);
+	}
+	
+	@Then("close the kodyorder web page")
+	public void close_window() throws InterruptedException {
+		driver.close();
 	}
 
 	
