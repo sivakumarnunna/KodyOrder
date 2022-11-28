@@ -9,7 +9,8 @@ public class MenuPage extends BasePage {
 	public By KODY_MENU_CATEGORIES = By.xpath(LOCATORS.getProperty("kody_menu_categories"));
 	public By CHECKOUT_BUTTON = By.xpath(LOCATORS.getProperty("checkout_button"));
 	public By KODY_MENU_CATEGORY = null;
-
+	//kody-shared-ui-modal/ion-header/ion-toolbar/div[1]
+	public By ADDON_PAGE_TITLE = By.xpath(LOCATORS.getProperty("addon_title"));
 	public void selectCategory(String category) throws InterruptedException {
 		for (int i = 1; i < 10; i++) {
 			if (getElementDisplayName(By.xpath(LOCATORS.getProperty("kody_menu_category")+"["+i +"]")).equals(category)) {
@@ -27,10 +28,14 @@ public class MenuPage extends BasePage {
 	
 	public void selectAddon(String addon) throws InterruptedException {
 		
+		System.out.println("Late started....");
 		for (int i = 1; i < 10; i++) {
-			
+			System.out.println("Late started...2...");
+
 			System.out.println("Addon is......."+driver.findElement(By.xpath(
 					"//kody-consumer-addon-modal/kody-shared-ui-modal/div/div/kody-list-item-action["+i+"]/ion-item/kody-toggle-button")).getAttribute("kp-object"));
+			System.out.println("Late ends...2...");
+
 			if (driver.findElement(By.xpath(
 					"//kody-consumer-addon-modal/kody-shared-ui-modal/div/div/kody-list-item-action["+i+"]/ion-item/kody-toggle-button")).getAttribute("kp-object").equalsIgnoreCase(addon)){
 				click(By.xpath(
@@ -39,8 +44,6 @@ public class MenuPage extends BasePage {
 			}
 		}
 		System.out.println("successfully selected");
-
-		Thread.sleep(5000);
 		click(KODYPAY_APPLY_BUTTON);
 	}
 }

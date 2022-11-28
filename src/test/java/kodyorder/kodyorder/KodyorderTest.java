@@ -74,6 +74,15 @@ public class KodyorderTest extends KodypayUtils {
 		logger.info("*********Selected the menu item :  "+menuitem +"**********");
 	}
 	
+	@When("I selected the menu item with addon {string},{string}")
+	public void i_selected_the_menu_item_with_addon(String menuitem, String addon) throws InterruptedException {
+		menupage.selectMenuItem(menuitem);
+		isElementExists(menupage.ADDON_PAGE_TITLE);
+		logger.info("*********Selected the menu item :  "+menuitem +"**********");
+		menupage.selectAddon(addon);
+		logger.info("*********Selected the addon :  "+addon +"**********");
+	}
+	
 	@When("I selected the addon {string}")
 	public void i_selected_the_addon(String addon) throws InterruptedException {
 		menupage.selectAddon(addon);
