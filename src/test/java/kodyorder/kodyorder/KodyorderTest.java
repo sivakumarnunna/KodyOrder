@@ -145,6 +145,16 @@ public class KodyorderTest extends KodypayUtils {
 		wait.until(ExpectedConditions.urlContains("order-confirmed"));
 		Assert.assertEquals(driver.getCurrentUrl().contains("order-confirmed"), true);
 	}
+	@Then("verify the 18+ icon for restricted item")
+	public void verify_18_icon() throws InterruptedException {
+		
+		isElementExists(By.xpath("//kody-menu-item/ion-item/ion-label/kody-store-item-chips/kody-chip/span/ion-chip"));
+		String text = driver.findElement(By.xpath("//kody-menu-item/ion-item/ion-label/kody-store-item-chips/kody-chip/span/ion-chip")).getText();
+		Assert.assertEquals(text, "18+");
+
+	
+	}
+	
 	
 	@Then("close the kodyorder web page")
 	public void close_window() throws InterruptedException {

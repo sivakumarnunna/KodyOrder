@@ -18,6 +18,7 @@ public class BasePage extends WebDriverUtils{
 	static Logger logger = LogManager.getLogger(BasePage.class);
 	
 	public By KODYPAY_APPLY_BUTTON = By.xpath(LOCATORS.getProperty("kodypay_apply_discount_button"));
+	public By KODYSTORE_ITEM_CHIP =  By.xpath(LOCATORS.getProperty("kody_store_item_chip"));
 
 
 	static {

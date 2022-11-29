@@ -73,5 +73,14 @@ Feature: marvel characters rest api testing
     Then order should be placed successfully
     Then close the kodyorder web page
     
+    Scenario: Customer ordering from kodyorder with addons
+    When I open the kodyorder URL "https://pay-staging.kodypay.com/store/6baca5f1-2da0-4eb9-9739-e018bdf208e0/counter"
+    When I selected the category "cocktails"
+    And I selected the menu item "screwdriver"
+    Then verify the 18+ icon for restricted item
+    When Click on checkout
+    Then verify the 18+ icon for restricted item
+
+  
 
  
